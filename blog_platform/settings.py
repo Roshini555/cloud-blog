@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'cloudinary',
     "blog",
 ]
 
@@ -127,6 +128,20 @@ STATICFILES_DIRS = [
 ]
 
 # Media files (User-uploaded content like profile pictures)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
+
+# Auto-switch storage engine based on where the app is running
+if os.environ.get('CLOUDINARY_CLOUD_NAME'):
+    # Production: Stream images straight to your permanent Cloudinary bucket
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+else:
+    # Development: Save images locally to your computer's hard drive
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
