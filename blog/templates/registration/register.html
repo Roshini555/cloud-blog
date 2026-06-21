@@ -1,0 +1,56 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <style>
+        .login-container p { margin-bottom: 20px; }
+        .login-container input {
+            width: 100%; padding: 14px 20px; margin-top: 6px; margin-bottom: 0;
+            background: rgba(15, 23, 42, 0.7); border: 2px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px; color: #f8fafc; font-size: 1rem; transition: all 0.3s ease;
+        }
+        .login-container input:focus {
+            outline: none; border-color: #38bdf8;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); background: rgba(15, 23, 42, 0.95);
+        }
+        .login-container label {
+            color: #94a3b8; font-size: 0.90rem; font-weight: 600; margin-bottom: 0;
+            display: block; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-super-login {
+            background: linear-gradient(45deg, #38bdf8, #818cf8); color: white;
+            border: none; padding: 14px; font-size: 1.15rem; font-weight: 700;
+            border-radius: 50px; transition: all 0.3s ease; width: 100%;
+            text-transform: uppercase; letter-spacing: 1px; margin-top: 10px;
+        }
+        .btn-super-login:hover {
+            transform: translateY(-3px); box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4); color: white;
+        }
+        /* Help text (password rules) styling */
+        .helptext { font-size: 0.8rem; color: #64748b; display: block; margin-top: 5px; }
+        .login-container ul { color: #ef4444; font-size: 0.85rem; padding-left: 20px; }
+    </style>
+
+    <div class="row justify-content-center align-items-center mt-5">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0 p-5 rounded-4 login-container" style="background: rgba(15, 23, 42, 0.8);">
+                <div class="text-center mb-4">
+                    <i class="bi bi-person-plus" style="font-size: 4rem; color: #38bdf8; text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);"></i>
+                    <h2 class="fw-bold mt-4 text-white">Join Cloud Blog</h2>
+                    <p class="text-muted small">Create an account to start writing</p>
+                </div>
+
+                <form method="post" class="text-start">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="mt-2">
+                        <button type="submit" class="btn-super-login">Sign Up</button>
+                    </div>
+                </form>
+                
+                <div class="mt-4 text-center">
+                    <p class="text-muted">Already have an account? <a href="{% url 'login' %}" style="color: #38bdf8;">Log In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

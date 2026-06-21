@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            
+            <article class="p-5 rounded-4 shadow-lg mb-4">
+                <h1 class="display-4 fw-bold mb-3 text-white">{{ post.title }}</h1>
+                
+                <p class="mb-4 border-bottom pb-3" style="color: #94a3b8; border-color: rgba(255,255,255,0.1) !important;">
+                    By <strong style="color: #38bdf8;">{{ post.author }}</strong> on {{ post.created_at|date:"F d, Y" }}
+                </p>
+                
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid rounded-4 mb-4 shadow-lg w-100" style="max-height: 500px; object-fit: cover;">
+                {% endif %}
+                
+                <div class="fs-5" style="line-height: 1.8; color: #e2e8f0;">
+                    {{ post.content|linebreaks }}
+                </div>
+                
+                {% if user == post.author %}
+                    <div class="mt-5 pt-4 border-top" style="border-color: rgba(255,255,255,0.1) !important;">
+                        <a href="{% url 'edit_post' post.id %}" class="btn btn-warning me-2 rounded-pill px-4 fw-bold shadow-sm">Edit Post</a>
+                        <a href="{% url 'delete_post' post.id %}" class="btn btn-outline-danger rounded-pill px-4">Delete</a>
+                    </div>
+                {% endif %}
+            </article>
+            
+            <div class="mt-4 mb-5 text-center">
+                <a href="{% url 'home' %}" class="text-decoration-none" style="color: #38bdf8; font-weight: 600;">
+                    &larr; Back to all posts
+                </a>
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}

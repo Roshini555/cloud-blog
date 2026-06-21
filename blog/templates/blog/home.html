@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="mb-4 text-center fw-bold text-white">Latest on Cloud Blog</h2>
+            
+            {% for post in posts %}
+                <div class="card shadow-lg mb-4 border-0 rounded-4">
+                    <div class="card-body p-4">
+                        
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid rounded-4 mb-3 w-100 shadow-sm" style="max-height: 350px; object-fit: cover;">
+                        {% endif %}
+
+                        <h3 class="card-title fw-bold mt-2">
+                            <a href="{% url 'post_detail' post.id %}" class="text-white text-decoration-none">{{ post.title }}</a>
+                        </h3>
+                        <div class="text-muted small mb-3">
+                            <span class="badge" style="background: linear-gradient(45deg, #38bdf8, #818cf8);">Author: {{ post.author }}</span> 
+                            &bull; {{ post.created_at|date:"F d, Y" }}
+                        </div>
+                        
+                        <p class="card-text text-light">{{ post.content|truncatewords:30 }}</p>
+                        
+                        <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-info btn-sm rounded-pill px-3">Read More &rarr;</a>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="alert text-center text-white" style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(56, 189, 248, 0.2);">
+                    No posts yet. Be the first to write one!
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

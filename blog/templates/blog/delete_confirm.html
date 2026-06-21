@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Delete Post?</h4>
+        <p>Are you sure you want to delete the post <strong>"{{ post.title }}"</strong>?</p>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+{% endblock %}
